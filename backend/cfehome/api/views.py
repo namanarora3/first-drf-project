@@ -13,6 +13,6 @@ def api_home(request,*args,**kwargs):
         pass
 
     resp['params'] = dict(request.GET)
-    resp['headers'] = dict(request.headers)
+    resp['headers'] = dict(request.headers) #httpheaders is not JSON serialable, thats why we use dict
     resp['content_type'] = request.content_type
     return JsonResponse(resp)
