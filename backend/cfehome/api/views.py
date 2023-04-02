@@ -5,7 +5,7 @@ def api_home(request,*args,**kwargs):
     # request -> http request from django
     # sent json request can be found in request.body
 
-    body = request.body  #we receive a btye string od JSON data
+    body = request.body  #we receive a btye string od JSON data and thats it
     resp = {}
     try:
         resp = json.loads(body) #byte string of json data -> python dict
