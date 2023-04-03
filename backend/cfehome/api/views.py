@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from products.models import Product
+from products.serializers import ProductSerializer
 
 '''echo get data
 def api_home_old1(request,*args,**kwargs):
@@ -20,7 +21,7 @@ def api_home_old1(request,*args,**kwargs):
     return JsonResponse(resp)
 '''
 
-#django model instance as API resource
+'''django model instance as API resource
 @api_view(['GET'])
 def api_home(request,*args,**kwargs):
     model_data =   Product.objects.all().order_by('?').first()
@@ -29,4 +30,17 @@ def api_home(request,*args,**kwargs):
         data = model_to_dict(model_data, fields=['id','price'])
         #here we are converting a model instance(model_data) into a python dict(data) which becomes jsonresponse
         #this is also known as serialization
+    return Response(data)
+'''
+
+#model serializer starting
+@api_view(['GET'])
+def api_home(request,*args,**kwargs):
+    instance =   Product.objects.all().order_by('?').first()
+    data = {}
+    if instance:
+        # data = model_to_dict(model_data, fields=['id','price','sale_price'])
+        #here we are converting a model instance(model_data) into a python dict(data) which becomes jsonresponse
+        #this is also known as serialization
+        data = ProductSerializer(instance).data
     return Response(data)
