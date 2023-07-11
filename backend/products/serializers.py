@@ -6,6 +6,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'id',
             'title',
             'content',
             'price',
@@ -14,6 +15,8 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
 
     def get_my_cost(self,obj): # we can call the object of the instance, thats the specal feature
+        if not hasattr(obj,"id"):
+            return None
         return obj.cost()
     
     # we can have multiple serializers for the same model
